@@ -8,10 +8,44 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>Name: Ayden Williams</p>
-    <p>Student ID: 12264325</p>
-    <a href="12264325.html">Go to my profile</a>
-    <img src="Screenshot 2026-04-13 170638.jpg" alt="Sample Image">
+    <div class="container">
+        <h1>Welcome to My Website</h1>
+        <div class="welcome-section">
+            <p>Name: Ayden Williams</p>
+            <p>Student ID: 12264325</p>
+            <h2>Group Members</h2>
+            <ul id="groupMembers">
+                <li>Ayden Williams</li>
+                <li>Group Member 2</li>
+                <li>Group Member 3</li>
+            </ul>
+        </div>
+
+        <div class="form-section">
+            <h2>Submit Your Information</h2>
+            <form id="dataForm" method="POST" action="/submit">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+            <div id="responseMessage" class="response-message"></div>
+        </div>
+
+        <a href="12264325.html">Go to my profile</a>
+        <img src="Screenshot 2026-04-13 170638.jpg" alt="Sample Image">
+    </div>
 </body>
 </html>

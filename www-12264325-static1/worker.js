@@ -9,28 +9,35 @@ const corsHeaders = {
 };
 
 async function handleRequest(request) {
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  const url = new URL(request.url);
 
-  if (request.method === 'POST') {
-    try {
-      const formData = await request.json();
-      const { fullName, email, message } = formData;
-
-      return new Response(
-        JSON.stringify({
-          message: 'Form submitted successfully!',
-          data: { fullName, email, message },
-        }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 200,
-        }
-      );
-    } catch (error) {
-      return new Response('Invalid form data', { status: 400, headers: corsHeaders });
+  // Check if the request is for the correct route
+  if (url.pathname === '/www-12264325-static1/submit') {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
     }
+
+    if (request.method === 'POST') {
+      try {
+        const formData = await request.json();
+        const { fullName, email, message } = formData;
+
+        return new Response(
+          JSON.stringify({
+            message: 'Form submitted successfully!',
+            data: { fullName, email, message },
+          }),
+          {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 200,
+          }
+        );
+      } catch (error) {
+        return new Response('Invalid form data', { status: 400, headers: corsHeaders });
+      }
+    }
+
+    return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
   }
 
   return new Response('Not Found', { status: 404, headers: corsHeaders });

@@ -2,7 +2,17 @@ addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
 });
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 async function handleRequest(request) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
+
   if (request.method === 'POST') {
     try {
       const formData = await request.json();
@@ -14,14 +24,14 @@ async function handleRequest(request) {
           data: { fullName, email, message },
         }),
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           status: 200,
         }
       );
     } catch (error) {
-      return new Response('Invalid form data', { status: 400 });
+      return new Response('Invalid form data', { status: 400, headers: corsHeaders });
     }
   }
 
-  return new Response('Not Found', { status: 404 });
+  return new Response('Not Found', { status: 404, headers: corsHeaders });
 }
